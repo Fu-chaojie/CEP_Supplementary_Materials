@@ -67,4 +67,3 @@ plot(t, ey, 'LineWidth', 1.5);
 grid on;
 xlabel('Time (s)');
 ylabel('Lateral Error (m)');
-title('Single Lane Change - Lateral Tracking Error');
