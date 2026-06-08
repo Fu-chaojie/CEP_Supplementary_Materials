@@ -2,7 +2,9 @@
 Control Engineering Practice 
 “Delay-Compensated LPV Model Predictive Control for Trajectory Tracking of Autonomous Vehicles with Steering Actuator Dynamics:
 Design and Real-Vehicle Validation on a Steer-by-Wire Platform” Supplementary video
-
+DLC maneuver.mp4 is a video of DLC experiments.
+SLC maneuver.mp4 is a video of SLC experiments.
+The third-person perspective experimental video.mp4 is from the perspective outside the vehicle.
 # Real-Vehicle Experimental Dataset
 
 This repository contains the real-vehicle experimental data used in our paper. All data files are provided in MATLAB `.mat` format. These datasets are utilized to validate and compare the performance of the proposed control algorithm against a baseline under various driving maneuvers.
