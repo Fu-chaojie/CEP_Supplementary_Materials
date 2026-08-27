@@ -1,7 +1,6 @@
-# Supplementary-video
+# Supplementary-Materials
 Control Engineering Practice 
-“Delay-Compensated LPV Model Predictive Control for Trajectory Tracking of Autonomous Vehicles with Steering Actuator Dynamics:
-Design and Real-Vehicle Validation on a Steer-by-Wire Platform” Supplementary video
+"Steering-Lag-Compensated LPV Model Predictive Control for Autonomous Vehicle Trajectory Tracking: Design and Real-Vehicle Validation on a Steer-by-Wire Platform":Supplementary materials
 ## 1.DLC maneuver.mp4 is a video of DLC experiments.
 ## 2.SLC maneuver.mp4 is a video of SLC experiments.
 ## 3.The third-person perspective experimental video.mp4 is from the perspective outside the vehicle.
@@ -14,31 +13,26 @@ This repository contains the real-vehicle experimental data used in our paper. A
 The data files are categorized by test maneuvers and the applied control algorithms. The specific mappings are as follows:
 
 ### 1.1 Single Lane Change (SLC) Maneuver
-* **`rec1_552.mat`**: Baseline algorithm data (conventional control without considering the steering system).
-* **`rec1_405.mat`**: Experimental data of the proposed control algorithm.
-* **`rec1_414.mat`**: Experimental data of the proposed control algorithm.
+* **`rec1_552.mat`**: LPV-MPC
+* **`rec1_414.mat`**: LC LPV-MPC
+* **`rec1_419.mat`**: LC LPV-MPC
+* **`rec1_88.mat`**: LQR+FF
+* **`rec1_53.mat`**: LQR
 
 ### 1.2 Double Lane Change (DLC) Maneuver
-* **`rec1_555.mat`**: Baseline algorithm data (conventional control without considering the steering system).
-* **`rec1_335.mat`**: Experimental data of the proposed control algorithm.
+* **`rec1_555.mat`**: LPV-MPC
+* **`rec1_335.mat`**: LC LPV-MPC
+* **`rec1_60.mat`**: LQR+FF
+* **`rec1_61.mat`**: LQR
 
 ### 1.3 Right-Angle Turn Maneuver
-* **`rec1_253.mat`**: Real-vehicle experimental data under the right-angle turn maneuver.
-
+* **`rec1_253.mat`**: LC LPV-MPC
+* **`rec1_94.mat`**: LQR+FF
 ---
 
 ## 2. Data Structure and Variable Mapping
+The data structures for MPC and LQR are different.
 
-All `.mat` files are stored using a unified structure format. Taking `rec1_405` as an example, the locations, physical meanings, and units of the core control and state variables are detailed below:
-
-| Variable | MATLAB Read Path | Unit | Description |
-| :--- | :--- | :--- | :--- |
-| `t` | `rec1_405.X(2).Data` | `s` | Time stamp |
-| `ey` | `rec1_405.Y(25).Data` | `m` | Lateral tracking error |
-| `ephi` | `rec1_405.Y(23).Data` | `rad` | Heading error |
-| `vx` | `rec1_405.Y(12).Data` | `km/h` | Longitudinal velocity |
-| `vy` | `rec1_405.Y(13).Data` | `km/h` | Lateral velocity |
-| `ay` | `rec1_405.Y(7).Data` | `g` | Lateral acceleration |
 
 > 📌 **Note:** For additional sensor data or control variables recorded during the experiments, please refer to the variable names and index mappings documented in the **`Path`** field within the corresponding `.mat` file.
 
@@ -49,21 +43,28 @@ All `.mat` files are stored using a unified structure format. Taking `rec1_405` 
 You can use the following brief MATLAB script to load and extract the core data for plotting or further analysis (using `rec1_405` as an example):
 
 ```matlab
-% Example: Load the proposed algorithm data for the Single Lane Change maneuver
+% Example For MPC Structure
+
 clear; clc;
-data = load('rec1_405.mat');
-
+data = load('rec1_XXX.mat');
 % Extract data
-t    = data.rec1_405.X(2).Data;   % Time (s)
-ey   = data.rec1_405.Y(25).Data;  % Lateral tracking error (m)
-ephi = data.rec1_405.Y(23).Data;  % Heading error (rad)
-vx   = data.rec1_405.Y(12).Data;  % Longitudinal velocity (km/h)
-vy   = data.rec1_405.Y(13).Data;  % Lateral velocity (km/h)
-ay   = data.rec1_405.Y(7).Data;   % Lateral acceleration (g)
+t    = data.rec1_XXX.X(2).Data;   % Time (s)
+ey   = data.rec1_XXX.Y(25).Data;  % Lateral tracking error (m)
+ephi = data.rec1_XXX.Y(23).Data;  % Heading error (rad)
+vx   = data.rec1_XXX.Y(12).Data;  % Longitudinal velocity (km/h)
+vy   = data.rec1_XXX.Y(13).Data;  % Lateral velocity (km/h)
+ay   = data.rec1_XXX.Y(7).Data;   % Lateral acceleration (g)
+delta_f   = data.rec1_XXX.Y(11).Data;   % Steering angle (deg)
 
-% Plot the lateral tracking error as an example
-figure;
-plot(t, ey, 'LineWidth', 1.5);
-grid on;
-xlabel('Time (s)');
-ylabel('Lateral Error (m)');
+% Example For LQR Structure
+clear; clc;
+data = load('rec1_XXX.mat');
+t    = data.rec1_XXX.X(2).Data;   % Time (s)
+ey   = data.rec1_XXX.Y(3).Data;  % Lateral tracking error (m)
+ephi = data.rec1_XXX.Y(2).Data;  % Heading error (rad)
+vx   = data.rec1_XXX.Y(8).Data;  % Longitudinal velocity (km/h)
+vy   = data.rec1_XXX.Y(9).Data;  % Lateral velocity (km/h)
+ay   = data.rec1_XXX.Y(5).Data;   % Lateral acceleration (g)
+delta_f   = data.rec1_XXX.Y(7).Data;   % Steering angle (deg)
+
+
